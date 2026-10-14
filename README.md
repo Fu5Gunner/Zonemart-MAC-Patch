@@ -20,4 +20,4 @@ If you have any ideas let me know.
 I received permission from the mod creator [Fomok] to create a patch. 
 All rights to the main Zonemart Mod go to [Fomok] give love to the mod and what its doing.
 
-
+https://www.moddb.com/mods/stalker-anomaly/addons/mac-compatabilty-patch-zonemartfomok
