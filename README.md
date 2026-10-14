@@ -2,8 +2,6 @@
 Zonemart 0.40.1 – MAC Patch adds Zonemart to the Mod App Creator PDA launcher as its own app icon.
 
 
-Zonemart 0.40.1 – MAC Patch adds Zonemart to the Mod App Creator PDA launcher as its own app icon.
-
 The problem it solves: Zonemart normally adds a visible “Market” tab to the PDA strip and resizes all existing buttons. With MAC, that would un-hide MAC’s hidden app tabs and scramble the layout.
 
 What’s in it:
