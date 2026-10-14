@@ -1,0 +1,64 @@
+-- Adds the Zonemart PDA tab.
+
+local function mac_launcher_present(xml, buttons)
+	local ok, has_mac = pcall(function()
+		return mac_mcm ~= nil
+	end)
+	if not (ok and has_mac) then
+		return false
+	end
+	for _, node in ipairs(buttons) do
+		local attr = xml:getElementAttr(node)
+		if attr and attr.id == "eptLauncher" then
+			return true
+		end
+	end
+	return false
+end
+
+function on_xml_read()
+	RegisterScriptCallback("on_xml_read", function(file, xml)
+		if file ~= [[ui\pda.xml]] and file ~= [[ui\pda_16.xml]] then
+			return
+		end
+		local tabs = xml:query("tab")
+		if not tabs[1] then
+			return
+		end
+		local old = xml:query("tab > button")
+		for _, node in ipairs(old) do
+			local attr = xml:getElementAttr(node)
+			if attr and attr.id == "eptFmkMarket" then
+				return
+			end
+		end
+		if mac_launcher_present(xml, old) then
+			xml:insertFromXMLString(
+				'<button x="1000" y="0" width="0" height="0" id="eptFmkMarket" frame_mode="0"><text align="c" vert_align="c" x="0" y="0" font="letterica16">st_fmk_market_pda</text></button>',
+				tabs[1]
+			)
+			return
+		end
+		-- Preserve existing IDs/order, sharing the current strip with the new tab.
+		local span = 0
+		for _, node in ipairs(old) do
+			local a = xml:getElementAttr(node)
+			span = math.max(span, (tonumber(a.x) or 0) + (tonumber(a.width) or 69))
+		end
+		local count = #old + 1
+		local step = math.max(1, (span - 11) / count)
+		local width = step + 11
+		for i, node in ipairs(old) do
+			xml:setElementAttr(node, { x = (i - 1) * step, y = 0, width = width })
+		end
+		local market_x = #old * step
+		xml:insertFromXMLString(
+			'<button x="'
+				.. market_x
+				.. '" y="0" width="'
+				.. width
+				.. '" height="27" id="eptFmkMarket" frame_mode="0"><text align="c" vert_align="c" font="letterica16">st_fmk_market_pda</text><texture>ui_inGame2_pda_button</texture><text_color><t r="224" g="224" b="180"/><e r="190" g="195" b="165"/><h r="245" g="240" b="190"/><d r="100" g="100" b="100"/></text_color></button>',
+			tabs[1]
+		)
+	end)
+end

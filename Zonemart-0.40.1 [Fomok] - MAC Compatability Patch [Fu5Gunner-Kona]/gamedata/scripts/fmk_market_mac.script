@@ -1,0 +1,35 @@
+-- This is just a patch for Zonemart by [Fomok]
+-- Me [Fu5Gunner] received permission from the mod creator to be able to create a patch to allow his mod to show in MAC
+-- This mod does nothing when MAC is not installed.
+-- the actual PDA view is still Zonemart's own fmk_market_pda.get_ui.
+local function RegisterScriptCallback(event, handler)
+	fmk_market_hooks.callback("fmk_market_mac", event, handler)
+end
+local APP_ID = "app_zonemart"
+function register()
+	if not mac_mcm or not mac_mcm.add_app then
+		return false
+	end
+	if mac_mcm.PDA_APPS and mac_mcm.PDA_APPS[APP_ID] then
+		return true
+	end
+	mac_mcm.add_app(APP_ID, {
+		name = "st_fmk_market_pda",
+		texture = "app_zonemart",
+		tab = "eptFmkMarket",
+		func = function()
+			return fmk_market_pda.get_ui()
+		end,
+	})
+	return true
+end
+function on_game_start()
+	if not fmk_market_hooks.begin("fmk_market_mac") then
+		return
+	end
+	pcall(register)
+	-- Re-check once the world is up in case MAC finished loading after us.
+	RegisterScriptCallback("actor_on_first_update", function()
+		pcall(register)
+	end)
+end

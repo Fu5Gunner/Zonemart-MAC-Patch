@@ -1,0 +1,8 @@
+<w>
+	<file name="ui\fmk_market_app">
+		<texture id="app_zonemart_e" x="0" y="0" width="256" height="256" />
+		<texture id="app_zonemart_h" x="256" y="0" width="256" height="256" />
+		<texture id="app_zonemart_t" x="0" y="256" width="256" height="256" />
+		<texture id="app_zonemart_d" x="0" y="256" width="256" height="256" />
+	</file>
+</w>
