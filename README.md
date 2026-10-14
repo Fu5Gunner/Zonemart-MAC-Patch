@@ -14,7 +14,8 @@ Install: add it as a separate MO2 mod, with higher priority than both Zonemart a
 
 Unchanged: trader dialogue and the offline NPC market work as before.
 
-
+More updates coming in the future. (Trying to add a patch to MAC to allow custom buttons and other QOL things)
+If you have any ideas let me know. 
 
 I received permission from the mod creator [Fomok] to create a patch. 
 All rights to the main Zonemart Mod go to [Fomok] give love to the mod and what its doing.
